@@ -5,9 +5,9 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '../_services';
 
-@Component({templateUrl: 'register.component.html'})
+@Component({templateUrl: 'addblog.component.html'})
 export class AddBlogComponent implements OnInit {
-    registerForm: FormGroup;
+    addblogForm: FormGroup;
     loading = false;
     submitted = false;
 
@@ -25,7 +25,7 @@ export class AddBlogComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerForm = this.formBuilder.group({
+        this.addblogForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
@@ -34,22 +34,22 @@ export class AddBlogComponent implements OnInit {
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.registerForm.controls; }
+    get f() { return this.addblogForm.controls; }
 
     onSubmit() {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.registerForm.invalid) {
+        if (this.addblogForm.invalid) {
             return;
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
+        this.userService.register(this.addblogForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
+                    this.alertService.success('Blog addition successful', true);
                     this.router.navigate(['/login']);
                 },
                 error => {
